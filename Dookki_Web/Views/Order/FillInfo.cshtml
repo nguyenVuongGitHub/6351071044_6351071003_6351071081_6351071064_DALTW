@@ -1,0 +1,86 @@
+﻿@using Dookki_Web.Models
+@model List<Cart>
+@{
+    ViewBag.Title = "FillInfo";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+<link rel="stylesheet" href="~/Contents/css/style.css" type="text/css">
+
+@*<h2>FillInfo lấy thông tin khách hàng sau đó add vào customer nếu như ko tìm thấy phone và thêm phone vào session account, fill xong chạy về lại confirm show thông tin khách hàng</h2>*@
+<section class="checkout spad">
+    <div class="container">
+        <div class="checkout__form">
+            @using (Html.BeginForm())
+            {
+                @Html.ValidationSummary(true)
+                <div class="row">
+                    <div class="col-lg-8 col-md-6">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="checkout__input">
+                                    <p>Name<span>*</span></p>
+                                    @Html.TextBox("FirstName", "", new { @class = "checkout__input__add" })
+                                    <div>
+                                        @ViewData["firstName"]
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="checkout__input">
+                                    <p>Last Name<span>*</span></p>
+                                    @Html.TextBox("LastName", "", new { @class = "checkout__input__add" })
+                                    <div>
+                                        @ViewData["lastName"]
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="checkout__input">
+                            <p>Address<span>*</span></p>
+                            @Html.TextBox("Address", "", new { @class = "checkout__input__add" })
+                            <div>
+                                @ViewData["address"]
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="checkout__input">
+                                    <p>Phone<span>*</span></p>
+                                    @Html.TextBox("Phone", "", new { @class = "checkout__input__add" })
+                                    <div>
+                                        @ViewData["phone"]
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="checkout__input">
+                                    <p>Email<span>*</span></p>
+                                    @Html.TextBox("Email", "", new { @type = "email", @class = "checkout__input__add" })
+                                    <div>
+                                        @ViewData["email"]
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="checkout__order">
+                            <h4>Your Order</h4>
+                            <div class="checkout__order__products">Products <span>Total</span></div>
+                            <ul>
+                                @foreach (var item in Model)
+                                {
+                                    <li>@item.name <span>@(item.price * item.quantily)đ</span></li>
+                                }
+                            </ul>
+                            <div class="checkout__order__subtotal">Subtotal <span>@ViewBag.NumProduct</span></div>
+                            <div class="checkout__order__total">Total <span>@String.Format("{0:0,0}", ViewBag.Total) đ</span></div>
+                            <button type="submit" class="site-btn">NEXT</button>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+     </div>
+</section>
+<script src="~/Scripts/ShoppingCart/main.js"></script>

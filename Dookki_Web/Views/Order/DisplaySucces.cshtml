@@ -1,0 +1,55 @@
+﻿
+@{
+    ViewBag.Title = "DisplaySucces";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+<link rel="stylesheet" href="~/Contents/css/style.css" type="text/css">
+
+<section class="checkout spad">
+    <div class="container">
+        <div class="row">
+            <h3>Bạn đã đặt bàn thành công!</h3>
+            <div class="checkout__input">
+                <p>Name</p>
+                <input type="text" value="@ViewBag.Name" disabled />
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="checkout__input">
+                        <p>Phone</p>
+                        <input type="text" value="@ViewBag.Phone" disabled />
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="checkout__input">
+                        <p>Seat</p>
+                        <input type="text" value="@ViewBag.Seat" disabled />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="checkout__input">
+                        <p>Date</p>
+                        <input type="text" value="@ViewBag.Date" disabled />
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="checkout__input">
+                        <p>Time</p>
+                        <input type="text" value="@ViewBag.Time" disabled />
+                    </div>
+                </div>
+            </div>
+            <p class="col-sm" style="text-align: left; color: #000000">
+                <h4>Total: <span>@String.Format("{0:0,0}", ViewBag.Total) đ</span></h4>
+            </p>
+            <div>
+                <p>
+                    Lưu ý giá trên chỉ đúng khi tất cả các vé đều là vé người lớn và không mua thêm các món ăn thêm.
+                    Giá thực tế có thể giảm hoặc tăng tùy theo số lượng món gọi thêm và số lượng vé trẻ em.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>

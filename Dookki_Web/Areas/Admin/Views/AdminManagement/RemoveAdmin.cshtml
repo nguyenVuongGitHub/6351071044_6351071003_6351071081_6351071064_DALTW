@@ -1,0 +1,49 @@
+﻿@model Dookki_Web.Models.Admin
+
+@{
+    ViewBag.Title = "RemoveAdmin";
+}
+
+<h2>Xóa admin</h2>
+
+<h3>Bạn quyết định xóa admin này?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Số điện thoại:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Phone)
+        </dd>
+
+        <dt>
+            Tên admin:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            Tên tài khoản:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ACCOUNT.UserName)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm("RemoveAdmin", "AdminManagement", FormMethod.Post)) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Xóa" class="btn btn-outline-danger mr-2 w-25" />
+            <button type="button" class="btn btn-primary w-25" onclick="window.location.href='@Url.Action("Index", "AdminManagement")'">
+                Trở lại
+            </button>
+        </div>
+    }
+</div>

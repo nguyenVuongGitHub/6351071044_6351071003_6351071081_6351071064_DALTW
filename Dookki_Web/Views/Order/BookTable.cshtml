@@ -1,0 +1,86 @@
+﻿
+@{
+    ViewBag.Title = "BookTable";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+@*@section Styles {
+        <link rel="stylesheet" href="~/Contents/css/style.css" type="text/css">
+
+    }*@
+<p style="position: fixed; bottom: 10px; left: 10px; background-color: #f9f9f9; padding: 10px; border: 1px solid #ddd; border-radius: 5px; box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); z-index: 9999;">
+    Current table status:
+    <span style="color: @(Session["TableStatus"] != null && (bool)Session["TableStatus"] ? "red" : "green");">
+        @(Session["TableStatus"] != null && (bool)Session["TableStatus"] ? "Full" : "Empty")
+    </span>
+</p>
+
+<section class="py-4 bg-light">
+    <div class="container">
+        <div class="bg-white border p-4 rounded">
+            <h2 class="text-center mb-4" style="font-size: 48px;">Book a table</h2>
+            @using (Html.BeginForm())
+            {
+                @Html.ValidationSummary(true, null, new { @class = "text-danger mb-3" })
+                <div class="row mb-3">
+                    <!-- First Name -->
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label">Name<span class="text-danger">*</span></label>
+                            @Html.TextBox("FirstName", "", new { @class = "form-control" })
+                            <div class="text-danger small">@ViewData["firstName"]</div>
+                        </div>
+                    </div>
+                    <!-- Last Name -->
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label">Last Name<span class="text-danger">*</span></label>
+                            @Html.TextBox("LastName", "", new { @class = "form-control" })
+                            <div class="text-danger small">@ViewData["lastName"]</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <!-- Phone -->
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label">Phone<span class="text-danger">*</span></label>
+                            @Html.TextBox("Phone", "", new { @class = "form-control" })
+                            <div class="text-danger small">@ViewData["phone"]</div>
+                        </div>
+                    </div>
+                    <!-- Seat -->
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label">Seat<span class="text-danger">*</span></label>
+                            @Html.TextBox("Seat", "", new { @type = "number", @class = "form-control" })
+                            <div class="text-danger small">@ViewData["seat"]</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <!-- Date -->
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label">Date<span class="text-danger">*</span></label>
+                            @Html.TextBox("Date", DateTime.Now, new { @type = "date", @class = "form-control" })
+                            <div class="text-danger small">@ViewData["date"]</div>
+                        </div>
+                    </div>
+                    <!-- Time -->
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label">Time<span class="text-danger">*</span></label>
+                            @Html.TextBox("Time", DateTime.Now.TimeOfDay, new { @type = "time", @class = "form-control" })
+                            <div class="text-danger small">@ViewData["time"]</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-3">
+
+                    <button type="submit" class="btn btn-danger" style="background-color: #ce1212">BOOK</button>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+

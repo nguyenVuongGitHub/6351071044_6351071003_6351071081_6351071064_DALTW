@@ -1,0 +1,61 @@
+﻿@model Dookki_Web.Models.Order
+@{
+    var customer = Model.Customer;
+
+}
+
+
+<h1>Yêu cầu mua mang về</h1>
+
+<h2 class="h3 mb-2 text-gray-800">Tên khách hàng: @customer.Name</h2>
+<h2 class="h3 mb-2 text-gray-800">Số điện thoại khách hàng: @customer.Phone</h2>
+<h2 class="h3 mb-2 text-gray-800">Ngày đặt: @ViewBag.Today</h2>
+<h2 class="h3 mb-2 text-gray-800">Giờ đặt: @Model.Time.ToString(@"hh\:mm\:ss")</h2>
+<h2 class="h3 mb-2 text-gray-800">Đơn đặt </h2>
+
+<table class="table" border="1">
+    <tr>
+        <th style="width: 100px;">Tên món</th>
+        <th style="width: 100px; text-align: center">Số lượng</th>
+        <th style="width: 100px; text-align: center">Hình thức thanh toán</th>
+        <th style="width: 100px; text-align: center">Thời gian</th>
+    </tr>
+
+        @foreach (var order in Model.OrderDetails)
+        {
+            <tr>
+                <td style="width: 100px;">
+                    @Html.Label(order.Ticket.Name)
+                </td>
+                <td style="width: 100px; text-align: center">
+                    @Html.Label(order.quantily.ToString())
+                </td>
+                <td style="width: 100px; text-align: center">
+                    @Html.Label(order.Payment.PaymentMethod.Name)
+                </td>
+                <td style="width: 100px; text-align: center">
+                    @ViewBag.Today <!-- Formats time to short date and time -->
+                </td>
+            </tr>
+        }
+    
+</table>
+
+<td style="text-align:right">
+    <button type="button" class="btn btn-primary" onclick="window.location.href='@Url.Action("AcceptRequestOrder", "AdminHome", new { id = @Model.ID })'">
+        Chấp nhận yêu cầu
+    </button> |
+    <button type="button" class="btn btn-danger" onclick="confirmDelete(@Model.ID)">
+        Xóa yêu cầu
+    </button>
+</td>
+
+<script>
+    function confirmDelete(id) {
+        if (confirm('Bạn có chắc chắn muốn xóa yêu cầu này không?')) {
+            // Chuyển hướng đến action DeleteRequest nếu người dùng xác nhận
+            window.location.href = '@Url.Action("DeleteRequestOrder", "AdminHome")' + '?id=' + id;
+        }
+    }
+</script>
+

@@ -1,0 +1,85 @@
+﻿@model Dookki_Web.Models.Customer
+@{
+    ViewBag.Title = "EditProfile";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<section class="py-4 bg-light rounded">
+    <div class="container">
+        <div class="p-4 border bg-white rounded">
+            <h2 class="text-center mb-4" style="font-size: 48px;">Edit Profile</h2>
+            <hr />
+            @if (ViewBag.Success != null)
+            {
+                <h5 class="text-success">@ViewBag.Success</h5>
+            }
+
+            @using (Html.BeginForm("EditProfile", "Customer", FormMethod.Post))
+            {
+                <div class="row g-3">
+                    @Html.HiddenFor(m => m.ID)
+
+                    <!-- Name -->
+                    <div class="mb-3">
+                        <label for="Name" class="form-label">Name</label>
+                        @Html.TextBoxFor(m => m.Name, new { @class = "form-control", @placeholder = "Enter your name", @id = "Name" })
+                    </div>
+
+                    <!-- Address -->
+                    <div class="mb-3">
+                        <label for="Address" class="form-label">Address</label>
+                        @Html.TextBoxFor(m => m.Address, new { @class = "form-control", @placeholder = "Enter your address", @id = "Address" })
+                    </div>
+
+                    <div class="row">
+                        <!-- Phone -->
+                        <div class="col-md-6 mb-3">
+                            <label for="Phone" class="form-label">Phone</label>
+                            @Html.TextBoxFor(m => m.Phone, new { @class = "form-control", @placeholder = "Enter your phone number", @id = "Phone" })
+                        </div>
+
+                        <!-- Email -->
+                        <div class="col-md-6 mb-3">
+                            <label for="Email" class="form-label">Email</label>
+                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @placeholder = "Enter your email", @type = "email", @id = "Email" })
+                        </div>
+                    </div>
+
+                    <p class="text-muted">If you update your phone number, your login account will also update as well.</p>
+
+                    <!-- New Password -->
+                    <div class="mb-3">
+                        <label for="NewPassword" class="form-label">New Password</label>
+                        @Html.TextBox("NewPassword", "", new { @class = "form-control", @type = "password", @id = "NewPassword" })
+                    </div>
+
+                    <!-- Confirm Password -->
+                    <div class="mb-3">
+                        <label for="ConfirmPassword" class="form-label">Confirm Password</label>
+                        @Html.TextBox("ConfirmPassword", "", new { @class = "form-control", @type = "password", @id = "ConfirmPassword" })
+                    </div>
+
+                    <p class="text-danger">@ViewBag.ErrorPassword</p>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="btn btn-danger" style="background-color: #ce1212">Update Profile</button>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+
+
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var successMessage = '@ViewBag.Success';
+        if (successMessage) {
+            // Reset the password fields
+            document.getElementById("NewPassword").value = "";
+            document.getElementById("ConfirmPassword").value = "";
+        }
+    });
+</script>

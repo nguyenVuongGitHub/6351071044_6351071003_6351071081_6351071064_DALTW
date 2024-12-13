@@ -1,0 +1,229 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+<main class="main">
+    <p></p>
+    <!-- Hero Section -->
+    <section id="hero" class="hero section light-background">
+
+        <div class="container">
+            <div class="row gy-4 justify-content-center justify-content-lg-between">
+                <div class="col-lg-5 order-2 order-lg-1 d-flex flex-column justify-content-center">
+                    <h1 data-aos="fade-up">DOOKKI<br>Korean Topokki Buffet</h1>
+                    <p data-aos="fade-up" data-aos-delay="100">Topokki for the firt meal! Fried rice for the second meal</p>
+                    <div class="d-flex" data-aos="fade-up" data-aos-delay="200">
+                        <a href="@Url.Action("BookTable","Order")" class="btn-get-started">Booka a Table</a>
+                        <a href="https://www.youtube.com/watch?v=qZSG7XCiYqk" class="glightbox btn-watch-video d-flex align-items-center"><i class="bi bi-play-circle"></i><span>Watch Video</span></a>
+                    </div>
+                </div>
+                <div class="col-lg-5 order-1 order-lg-2 hero-img" data-aos="zoom-out">
+                    <img src="~/Contents/img/hotpot.png" class="img-fluid animated" alt="">
+                </div>
+            </div>
+        </div>
+
+    </section><!-- /Hero Section -->
+    <!-- About Section -->
+    <section id="about" class="about section">
+
+        <!-- Section Title -->
+        <div class="container section-title" data-aos="fade-up">
+            <h2>About Us<br></h2>
+            <p><span>About</span> <span class="description-title">DOOKKI VietNam</span></p>
+        </div><!-- End Section Title -->
+
+        <div class="container">
+
+            <div class="row gy-4">
+                <div class="col-lg-7" data-aos="fade-up" data-aos-delay="100">
+                    <img src="~/Contents/img/about dookki.jpg" class="img-fluid mb-4" alt="">
+                    <div class="book-a-table">
+                        <h3>Book a Table</h3>
+                        <p>0328 651 594</p>
+                    </div>
+                </div>
+                <div class="col-lg-5" data-aos="fade-up" data-aos-delay="250">
+                    <div class="content ps-0 ps-lg-5">
+                        <p>
+                            Dookki Việt Nam thành lập vào cuối năm 2017 hoạt động trong lĩnh vực Dịch vụ Nhà hàng với nhiều thương hiệu. Trong đó nổi bật nhất là thương hiệu Dookki – Buffet lẩu Toppokki Hàn Quốc đầu tiên và lớn nhất tại Việt Nam cho đến thời điểm hiện tại.
+                        </p>
+                        <P>
+                            Đến thời điểm hiện tại, Dookki Việt Nam có hơn 50 cửa hàng trải dài từ Nam ra Bắc với số lượng nhân viên hơn 800 người và công ty vẫn đang tiếp tục không ngừng mở rộng .
+                        </P>
+                        <div class="position-relative mt-4">
+                            <img src="~/Contents/img/menu-dookki-buffet.jpg" class="img-fluid" alt="">
+                            <a href="https://www.youtube.com/watch?v=UQ7qpO5-d3w" class="glightbox pulsating-play-btn"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </section><!-- /About Section -->
+    <!-- Stats Section -->
+    <section id="stats" class="stats section dark-background">
+
+        <img src="~/Contents/img/dookki-bg.jpg" alt="" data-aos="fade-in">
+
+        <div class="container position-relative" data-aos="fade-up" data-aos-delay="100">
+
+            <div class="row gy-4">
+
+                <div class="col-lg-3 col-md-6">
+                    <div class="stats-item text-center w-100 h-100">
+                        <span data-purecounter-start="0" data-purecounter-end="2320" data-purecounter-duration="1" class="purecounter"></span>
+                        <p>Clients</p>
+                    </div>
+                </div><!-- End Stats Item -->
+
+                <div class="col-lg-3 col-md-6">
+                    <div class="stats-item text-center w-100 h-100">
+                        <span data-purecounter-start="0" data-purecounter-end="90" data-purecounter-duration="1" class="purecounter"></span>
+                        <p>Branch</p>
+                    </div>
+                </div><!-- End Stats Item -->
+
+                <div class="col-lg-3 col-md-6">
+                    <div class="stats-item text-center w-100 h-100">
+                        <span data-purecounter-start="0" data-purecounter-end="93" data-purecounter-duration="1" class="purecounter"></span>
+                        <p>Number of Dishes</p>
+                    </div>
+                </div><!-- End Stats Item -->
+
+                <div class="col-lg-3 col-md-6">
+                    <div class="stats-item text-center w-100 h-100">
+                        <span data-purecounter-start="0" data-purecounter-end="124" data-purecounter-duration="1" class="purecounter"></span>
+                        <p>Workers</p>
+                    </div>
+                </div><!-- End Stats Item -->
+
+            </div>
+
+        </div>
+
+    </section><!-- /Stats Section -->
+    <!-- Gallery Section -->
+    <section id="gallery" class="gallery section light-background">
+
+        <!-- Section Title -->
+        <div class="container section-title" data-aos="fade-up">
+            <h2>Gallery</h2>
+            <p><span>Check</span> <span class="description-title">Our Gallery</span></p>
+        </div><!-- End Section Title -->
+
+        <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+            <div class="swiper init-swiper">
+                <script type="application/json" class="swiper-config">
+                    {
+                      "loop": true,
+                      "speed": 600,
+                      "autoplay": {
+                        "delay": 5000
+                      },
+                      "slidesPerView": "auto",
+                      "centeredSlides": true,
+                      "pagination": {
+                        "el": ".swiper-pagination",
+                        "type": "bullets",
+                        "clickable": true
+                      },
+                      "breakpoints": {
+                        "320": {
+                          "slidesPerView": 1,
+                          "spaceBetween": 0
+                        },
+                        "768": {
+                          "slidesPerView": 3,
+                          "spaceBetween": 20
+                        },
+                        "1200": {
+                          "slidesPerView": 5,
+                          "spaceBetween": 20
+                        }
+                      }
+                    }
+                </script>
+                <div class="swiper-wrapper align-items-center">
+                    <div class="swiper-slide"><a class="glightbox" data-gallery="images-gallery" href="~/Contents/img/gallery/1.jpg"><img src="~/Contents/img/gallery/1.jpg" class="img-fluid" alt=""></a></div>
+                    <div class="swiper-slide"><a class="glightbox" data-gallery="images-gallery" href="~/Contents/img/gallery/2.jpg"><img src="~/Contents/img/gallery/2.jpg" class="img-fluid" alt=""></a></div>
+                    <div class="swiper-slide"><a class="glightbox" data-gallery="images-gallery" href="~/Contents/img/gallery/3.jpg"><img src="~/Contents/img/gallery/3.jpg" class="img-fluid" alt=""></a></div>
+                    <div class="swiper-slide"><a class="glightbox" data-gallery="images-gallery" href="~/Contents/img/gallery/4.jpg"><img src="~/Contents/img/gallery/4.jpg" class="img-fluid" alt=""></a></div>
+                    <div class="swiper-slide"><a class="glightbox" data-gallery="images-gallery" href="~/Contents/img/gallery/5.jpg"><img src="~/Contents/img/gallery/5.jpg" class="img-fluid" alt=""></a></div>
+                    <div class="swiper-slide"><a class="glightbox" data-gallery="images-gallery" href="~/Contents/img/gallery/6.jpg"><img src="~/Contents/img/gallery/6.jpg" class="img-fluid" alt=""></a></div>
+                    <div class="swiper-slide"><a class="glightbox" data-gallery="images-gallery" href="~/Contents/img/gallery/7.jpg"><img src="~/Contents/img/gallery/7.jpg" class="img-fluid" alt=""></a></div>
+                    <div class="swiper-slide"><a class="glightbox" data-gallery="images-gallery" href="~/Contents/img/gallery/8.jpg"><img src="~/Contents/img/gallery/8.jpg" class="img-fluid" alt=""></a></div>
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+
+        </div>
+
+    </section><!-- /Gallery Section -->
+    <!-- Contact Section -->
+    <section id="contact" class="contact section">
+
+        <!-- Section Title -->
+        <div class="container section-title" data-aos="fade-up">
+            <h2>Contact</h2>
+            <p><span>Need Help?</span> <span class="description-title">Contact Us</span></p>
+        </div><!-- End Section Title -->
+
+        <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+            <div class="mb-5">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3918.5448282931548!2d106.77322097769843!3d10.846103161735478!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x317527006823d997%3A0xd65b1fc37a808f1d!2zRG9va2tpIFZpbmNvbSBMw6ogVsSDbiBWaeG7h3Q!5e0!3m2!1svi!2s!4v1732181909386!5m2!1svi!2s" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div><!-- End Google Maps -->
+
+            <div class="row gy-4">
+
+                <div class="col-md-6">
+                    <div class="info-item d-flex align-items-center" data-aos="fade-up" data-aos-delay="200">
+                        <i class="icon bi bi-geo-alt flex-shrink-0"></i>
+                        <div>
+                            <h3>Address</h3>
+                            <p>50 Lê Văn Việt, Hiệp Phú, Quận 9, Hồ Chí Minh 700000, Việt Nam</p>
+                        </div>
+                    </div>
+                </div><!-- End Info Item -->
+
+                <div class="col-md-6">
+                    <div class="info-item d-flex align-items-center" data-aos="fade-up" data-aos-delay="300">
+                        <i class="icon bi bi-telephone flex-shrink-0"></i>
+                        <div>
+                            <h3>Call Us</h3>
+                            <p>0328 651 594</p>
+                        </div>
+                    </div>
+                </div><!-- End Info Item -->
+
+                <div class="col-md-6">
+                    <div class="info-item d-flex align-items-center" data-aos="fade-up" data-aos-delay="400">
+                        <i class="icon bi bi-envelope flex-shrink-0"></i>
+                        <div>
+                            <h3>Email Us</h3>
+                            <p>nguyenvuong171104@gmail.com</p>
+                        </div>
+                    </div>
+                </div><!-- End Info Item -->
+
+                <div class="col-md-6">
+                    <div class="info-item d-flex align-items-center" data-aos="fade-up" data-aos-delay="500">
+                        <i class="icon bi bi-clock flex-shrink-0"></i>
+                        <div>
+                            <h3>Opening Hours<br></h3>
+                            <strong>Whole week:</strong> <span>10:30AM - 9:30PM</span><br>
+                        </div>
+                    </div>
+                </div><!-- End Info Item -->
+
+            </div>
+        </div>
+
+    </section><!-- /Contact Section -->
+
+</main>
+

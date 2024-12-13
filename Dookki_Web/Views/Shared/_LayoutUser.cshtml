@@ -1,0 +1,180 @@
+﻿@using Dookki_Web.App_Start
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+
+    <!-- Favicons -->
+    <link href="~/Contents/img/Icon/dookki_Icon.ico" rel="icon">
+    <link href="~/Contents/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Amatic+SC:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="~/Contents/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Contents/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="~/Contents/vendor/aos/aos.css" rel="stylesheet">
+    <link href="~/Contents/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+    <link href="~/Contents/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+
+    <!-- Main CSS File -->
+    <link href="~/Contents/css/main.css" rel="stylesheet">
+    @*@RenderSection("Styles", required: false)*@
+</head>
+<body class="index-page">
+    <div>
+
+        <header id="header" class="header d-flex align-items-center sticky-top">
+            <div class="container position-relative d-flex align-items-center justify-content-between">
+
+                <a href="@Url.Action("Index","Home")" class="logo d-flex align-items-center me-auto me-xl-0">
+                    <!-- Uncomment the line below if you also wish to use an image logo -->
+                    <!-- <img src="~/Contents/img/logo.png" alt=""> -->
+                    <h1 class="sitename">DOOKKI</h1>
+                    <span>.</span>
+                </a>
+
+                <nav id="navmenu" class="navmenu">
+                    <ul>
+                        <li><a href="@Url.Action("Index","Home")">Home<br></a></li>
+                        <li><a href="@Url.Action("Order","Home")">Menu</a></li>
+                    </ul>
+                    <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+                </nav>
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <a class="btn-getstarted" href="@Url.Action("BookTable","Order")">Book a Table</a>
+                    <a class="btn-getstarted" href="@Url.Action("DisplayCart","Order")">
+                        <i class="fa-solid fa-bag-shopping" style="color: #ffffff;"></i> @Html.Action("DisplayCartPartial", "Order")
+                    </a>
+                    <div>
+                        @if (CookiesConfig.GetUser(Request) != null)
+                        {
+                            <style>
+                                ul {
+                                    list-style-type: none;
+                                    margin: 0;
+                                    padding: 0;
+                                }
+                            </style>
+
+                            <ul id="navmenu" class="navmenu">
+                                <li class="dropdown">
+                                    <a class="btn-getstarted" href="#">
+                                        @CookiesConfig.GetUserName(Request)
+                                        <i class="bi bi-chevron-down toggle-dropdown"></i>
+                                    </a>
+                                    <ul>
+                                        <li><a href="@Url.Action("HistoryOrder", "Customer")">History order</a></li>
+                                        <li><a href="@Url.Action("CurrentOrder", "Customer")">Current order</a></li>
+                                        <li><a href="@Url.Action("EditProfile", "Customer")">Edit Profile</a></li>
+                                        <li><a href="@Url.Action("Logout", "Customer")">Logout</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        }
+                        else
+                        {
+                            <a class="btn-getstarted" href="@Url.Action("Login", "Customer")">Login</a>
+                        }
+                    </div>
+                </div>
+
+
+
+            </div>
+        </header>
+
+        @RenderBody()
+
+        <footer id="footer" class="footer dark-background">
+
+            <div class="container">
+                <div class="row gy-3">
+                    <div class="col-lg-3 col-md-6 d-flex">
+                        <i class="bi bi-geo-alt icon"></i>
+                        <div class="address">
+                            <h4>Address</h4>
+                            <p>50 Le Van Viet Street</p>
+                            <p>Hiep Phu , district 9, HCM city, Viet Nam</p>
+                            <p></p>
+                        </div>
+
+                    </div>
+
+                    <div class="col-lg-3 col-md-6 d-flex">
+                        <i class="bi bi-telephone icon"></i>
+                        <div>
+                            <h4>Contact</h4>
+                            <p>
+                                <strong>Phone:</strong> <span>0328 651 594</span><br>
+                                <strong>Email:</strong> <span>nguyenvuong171104@gmail.com</span><br>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6 d-flex">
+                        <i class="bi bi-clock icon"></i>
+                        <div>
+                            <h4>Opening Hours</h4>
+                            <p>
+                                <strong>Whole week:</strong> <span>10:30AM - 9:30PM</span><br>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6">
+                        <h4>Follow Us</h4>
+                        <div class="social-links d-flex">
+                            <a href="#" class="twitter"><i class="bi bi-twitter-x"></i></a>
+                            <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+                            <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+                            <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="container copyright text-center mt-4">
+                <p>© <span>Copyright</span> <strong class="px-1 sitename">Yummy</strong> <span>All Rights Reserved</span></p>
+                <div class="credits">
+                    <!-- All the links in the footer should remain intact. -->
+                    <!-- You can delete the links only if you've purchased the pro version. -->
+                    <!-- Licensing information: https://bootstrapmade.com/license/ -->
+                    <!-- Purchase the pro version with working PHP/AJAX contact form: [buy-url] -->
+                    Designed by <a href="https://bootstrapmade.com/">Nguyen Quoc Anh</a>
+                </div>
+            </div>
+
+        </footer>
+
+        <!-- Scroll Top -->
+        <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+        <!-- Preloader -->
+        <div id="preloader"></div>
+
+        <!-- Vendor JS Files -->
+        <script src="~/Contents/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="~/Contents/vendor/php-email-form/validate.js"></script>
+        <script src="~/Contents/vendor/aos/aos.js"></script>
+        <script src="~/Contents/vendor/glightbox/js/glightbox.min.js"></script>
+        <script src="~/Contents/vendor/purecounter/purecounter_vanilla.js"></script>
+        <script src="~/Contents/vendor/swiper/swiper-bundle.min.js"></script>
+        <script src="https://kit.fontawesome.com/f6a4a1ce59.js" crossorigin="anonymous"></script>
+
+
+        <!-- Main JS File -->
+        <script src="~/Scripts/main.js"></script>
+
+    </div>
+</body>
+</html>

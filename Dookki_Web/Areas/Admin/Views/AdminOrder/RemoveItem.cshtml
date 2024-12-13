@@ -1,0 +1,41 @@
+﻿@model Dookki_Web.Models.Ticket
+
+@{
+    ViewBag.Title = "RemoveItem";
+}
+
+<h3>Bạn quyết định xóa vé này?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Tên vé:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            Giá bán:
+        </dt>
+
+        <dd>
+            @String.Format("{0:0,0}", Model.Price) VNĐ
+        </dd>
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10 d-flex justify-content-start">
+                <input type="submit" value="Xóa" class="btn btn-outline-danger mr-2 w-25" />
+                <button type="button" class="btn btn-primary w-25" onclick="window.location.href='@Url.Action("Display", "AdminOrder")'">
+                    Trở lại
+                </button>
+            </div>
+        </div>
+    }
+</div>

@@ -1,0 +1,43 @@
+﻿@model Dookki_Web.Models.BookingRequest
+@{
+    ViewBag.Title = "RequestDetail";
+}
+
+<h1>Yêu cầu đặt bàn</h1>
+
+<h2 class="h3 mb-2 text-gray-800">Tên khách hàng: @Model.Name</h2>
+<h2 class="h3 mb-2 text-gray-800">Số điện thoại khách hàng: @Model.Phone</h2>
+<h2 class="h3 mb-2 text-gray-800">Ngày đặt: @(Model.Date.HasValue ? Model.Date.Value.ToString("dd/MM/yyyy") : "N/A")</h2>
+<h2 class="h3 mb-2 text-gray-800">Giờ đặt: @Model.Time.ToString()</h2>
+<h2 class="h3 mb-2 text-gray-800">Số người: @Model.NumberOfSeat</h2>
+@if (@Model.Status == "Pending")
+{
+    <h2 class="h3 mb-2 text-gray-800">Trạng thái: Đang chờ</h2>
+}
+else if (@Model.Status == "Accepted")
+{
+    <h2 class="h3 mb-2 text-gray-800">Trạng thái: Đã đặt</h2>
+}
+else
+{
+    <h2 class="h3 mb-2 text-gray-800">Trạng thái: Đã hủy</h2>
+
+}
+
+<td style="text-align:right">
+    <button type="button" class="btn btn-primary" onclick="window.location.href='@Url.Action("AcceptRequest", "AdminHome", new { id = @Model.ID })'">
+        Chấp nhận yêu cầu
+    </button> |
+    <button type="button" class="btn btn-danger" onclick="confirmDelete(@Model.ID)">
+        Xóa yêu cầu
+    </button>
+</td>
+
+<script>
+    function confirmDelete(id) {
+        if (confirm('Bạn có chắc chắn muốn xóa yêu cầu này không?')) {
+            // Chuyển hướng đến action DeleteRequest nếu người dùng xác nhận
+            window.location.href = '@Url.Action("DeleteRequest", "AdminHome")' + '?id=' + id;
+        }
+    }
+</script>

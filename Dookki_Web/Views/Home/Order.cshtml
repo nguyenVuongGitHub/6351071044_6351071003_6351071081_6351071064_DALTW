@@ -1,0 +1,64 @@
+﻿@model IEnumerable<Dookki_Web.Models.Ticket>
+
+@{
+    ViewBag.Title = "Order";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<main class="main">
+    <section id="menu" class="menu section">
+
+        <!-- Section Title -->
+        <div class="container section-title" data-aos="fade-up">
+            <h2>Our Menu</h2>
+            <p><span>Check Our</span> <span class="description-title">Dookki Menu</span></p>
+        </div><!-- End Section Title -->
+
+        <div class="container">
+            <div style="position: fixed; top: 100px; width: 300px;">
+                <form action="@Url.Action("Search", "Home")" method="get" style="display: flex; align-items: center;">
+                    <input type="text"
+                           name="keyword"
+                           placeholder="Search for a product"
+                           style="flex: 1; padding: 5px; border: 1px solid #ccc; border-radius: 5px; margin-right: 10px;" />
+                    <button type="submit"
+                            style="padding: 5px 10px; background-color: #ce1212; color: white; border: none; border-radius: 5px; cursor: pointer; ">
+                        Search
+                    </button>
+                </form>
+            </div>
+            <div class="tab-content" data-aos="fade-up" data-aos-delay="200">
+
+                <div class="tab-pane fade active show" id="menu-starters">
+
+                    <div class="row gy-5">
+                        @foreach (var item in Model)
+                        {
+                            if (item.CategoryTicket.Name == "Stay-here") // stay-here
+                            {
+                                continue;
+                            }
+                            else
+                            {
+                                string imageName = item.urlImage;
+                                string imagePath = Url.Content($"~/Contents/img/menu/{imageName}");
+                                <div class="col-lg-4 menu-item">
+                                    <a href="@imagePath" class="glightbox"><img src="@imagePath" class="menu-img img-fluid" alt=""></a>
+                                    <h4>@Html.DisplayFor(modelItem => item.Name)</h4>
+                                    <div class="price">
+                                        <div>
+                                            <p>@decimal.Parse(@Html.DisplayFor(modelItem => item.Price).ToString()).ToString("#,###")đ</p>
+                                        </div>
+                                        <div style="border: 1px solid #ce1212; border-radius: 10px; background-color: #ce1212; cursor: pointer; margin: 0 150px" onclick="location.href='@Url.Action("AddtoCart", "Order", new { @ticketID = item.ID})'">
+                                            <a class="btn-getstarted" style="color: white" href="#">Select</a>
+                                        </div>
+                                    </div>
+                                </div><!-- Menu Item -->
+                            }
+                        }
+                    </div>
+                </div><!-- End Starter Menu Content -->
+            </div>
+        </div>
+    </section><!-- /Menu Section -->
+</main>

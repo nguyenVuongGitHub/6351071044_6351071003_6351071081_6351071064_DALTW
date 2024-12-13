@@ -1,0 +1,52 @@
+﻿@model IEnumerable<Dookki_Web.Models.Order>
+
+@{
+    ViewBag.Title = "Delivery";
+}
+
+<h2>THÔNG TIN ĐẶT HÀNG</h2>
+
+<table class="table" border="1">
+    <tr>
+        <th style="width: 100px;">Ngày đặt</th>
+        <th style="width: 100px;">Thời gian đặt</th>
+        <th style="width: 100px;">Trạng thái</th>
+        <th style="width: 100px; text-align: right">Số điện thoại</th>
+        <th style="width: 200px;"></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @ViewBag.Today
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Time)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td style="text-align:right">
+                @Html.DisplayFor(modelItem => item.Customer.Phone)
+            </td>
+            <td style="text-align:right">
+                @if (item.Status == "Accepted")
+                {
+                    //Dang giao
+                    <a href="@Url.Action("SetDelivering", "AdminHome", new { id = item.ID })"
+                       class="btn btn-warning">Đang giao</a>
+                }
+
+                @if (item.Status == "Delivering")
+                {
+                    //da giao
+                    <a href="@Url.Action("SetFinished", "AdminHome", new { id = item.ID })"
+                       class="btn btn-success">Đã giao</a>
+                }
+            </td>
+        </tr>
+    }
+
+</table>
+

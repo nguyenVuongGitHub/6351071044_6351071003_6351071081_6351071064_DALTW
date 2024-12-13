@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34024.191
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dookki_Web", "Dookki_Web\Dookki_Web.csproj", "{0873E218-74BD-4DA6-97B5-4B24D12D93B9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0873E218-74BD-4DA6-97B5-4B24D12D93B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0873E218-74BD-4DA6-97B5-4B24D12D93B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0873E218-74BD-4DA6-97B5-4B24D12D93B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0873E218-74BD-4DA6-97B5-4B24D12D93B9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9947993F-6FB2-4CB0-AB38-3D2521E0C600}
+	EndGlobalSection
+EndGlobal

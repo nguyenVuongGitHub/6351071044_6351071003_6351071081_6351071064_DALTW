@@ -1,0 +1,348 @@
+﻿@model IEnumerable<Dookki_Web.Models.BookingRequest>
+
+@{
+    ViewBag.Title = "Statistical";
+    var chartPieData = ViewBag.ChartPieData;
+    var chartPieLable = ViewBag.ChartPieLable;
+
+    var chartLineData = ViewBag.ChartLineData;
+    var chartLineLable = ViewBag.ChartLineLable;
+    var ordersPending = ViewBag.OrdersPending as List<Dookki_Web.Models.Order>;
+}
+<!-- Page Wrapper -->
+<div id="wrapper">
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <h1 class="h3 mb-2 text-gray-800">Trang chủ</h1>
+
+                <!-- create check box with label: Trạng thái bàn
+                and checkbox title: Full
+                if checkbox.IsChecked == true then in webUser will get value true or false-->
+
+                @using (Html.BeginForm("UpdateStatus", "AdminHome", FormMethod.Post, new { id = "statusForm" }))
+                {
+                    <div class="form-group row align-items-center">
+                        @Html.Label("Trạng thái bàn:", htmlAttributes: new { @class = "col-form-label col-md-2" })
+                        <div class="col-md-6 d-flex align-items-center">
+                            <div class="form-check mr-3">
+                                @* Explicitly check if ViewBag.IsFull is null and cast it to a non-nullable bool *@
+                                @Html.CheckBox("IsFull", (bool)(ViewBag.IsFull ?? false), new { @class = "form-check-input", id = "isFullCheckbox" })
+                                <label class="form-check-label" for="isFullCheckbox">Hết bàn</label>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Cập nhật</button>
+                        </div>
+                    </div>
+                }
+
+                <div class="mb-2">
+                    <form class="form-inline mr-auto ml-md-3 my-2 my-md-0 navbar-search ml-auto d-flex justify-content-end" method="get" action="@Url.Action("Index", "AdminHome")">
+                        <div class="input-group">
+                            <div class="input-group-append mr-2">
+                                <button type="button" class="btn btn-primary d-flex justify-content-end" onclick="window.location.href='@Url.Action("ListAcceptedRequest", "AdminHome")'">
+                                    Xem danh sách chờ yêu cầu
+                                </button>
+                            </div>
+                            <div class="input-group-append">
+                                <input type="text" name="searchTerm" class="form-control bg-light border-1 small" placeholder="Tìm kiếm..."
+                                       aria-label="Search" aria-describedby="basic-addon2">
+                                <button class="btn btn-primary" type="submit">
+                                    <i class="fas fa-search fa-sm"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <table class="table" border="1">
+
+                    <tr>
+                        <th style="width: 100px;">Tên yêu cầu đặt bàn</th>
+                        <th style="width: 100px; text-align: right">Thời gian</th>
+                        <th style="width: 200px;"></th>
+                    </tr>
+
+                    @for (int i = 0; i < Model.Count(); i++)
+                    {
+                        var booking = Model.ElementAt(i);
+                        if (booking.Status == "Pending")
+                        {
+                            <tr>
+                                <td>
+                                    @Html.Label(booking.Name + " (" + booking.Phone + ")")
+                                </td>
+                                <td style="text-align:right">
+                                    @Html.Label(booking.Time.ToString())
+                                </td>
+                                <td style="text-align:right">
+                                    <button type="button" class="btn btn-primary" onclick="window.location.href='@Url.Action("RequestDetail", "AdminHome", new { id = booking.ID })'">
+                                        Xem yêu cầu
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </table>
+                <hr />
+                <table class="table" border="1">
+                    <tr>
+                        <th style="width: 100px;">Tên yêu cầu mua mang về</th>
+                        <th style="width: 100px; text-align: right">Thời gian</th>
+                        <th style="width: 200px;"></th>
+                    </tr>
+
+                    @if (ViewBag.OrdersPending != null)
+                    {
+                        foreach (var order in ordersPending)
+                        {
+                            var customer = order.Customer;
+                            <tr>
+                                <td>
+                                    @Html.Label(customer.Name + " (" + customer.Phone + ")")
+                                </td>
+                                <td style="text-align:right">
+                                    @Html.Label(order.Time.ToString(@"hh\:mm\:ss"))
+                                </td>
+                                <td style="text-align:right">
+                                    <button type="button" class="btn btn-primary" onclick="window.location.href='@Url.Action("RequestDetailOrder", "AdminHome", new { id = order.ID })'">
+                                        Xem yêu cầu
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="3" style="text-align: center;">Chưa có yêu cầu nào. @ordersPending.Count</td>
+                        </tr>
+                    }
+                </table>
+
+                <!-- Content Row -->
+                <div class="row">
+
+                    <div class="col-xl-8 col-lg-7">
+
+                        <!-- Area Chart -->
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary">Doanh thu của cửa hàng trong năm @ViewBag.Year</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="chart-area">
+                                    <canvas id="myAreaChart"></canvas>
+                                </div>
+                                <hr>
+                                <!-- Hiển thị tổng doanh thu dưới biểu đồ -->
+                                <p class="text-primary font-weight-bold">Tổng doanh thu trong năm @ViewBag.Year: @ViewBag.TotalRevenue VND</p>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Donut Chart -->
+                    <div class="col-xl-4 col-lg-7">
+                        <div class="card shadow mb-4">
+                            <!-- Card Header - Dropdown -->
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary">Tỉ lệ loại khách trong năm @ViewBag.Year</h6>
+                            </div>
+                            <!-- Card Body -->
+                            <div class="card-body">
+                                <div class="chart-pie pt-4">
+                                    <canvas id="myPieChart"></canvas>
+                                </div>
+                                <hr>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- End of Main Content -->
+        <!-- End of Footer -->
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+<script>
+    document.getElementById("isFullCheckbox").addEventListener("change", function (event) {
+        event.preventDefault(); // Prevent page reload
+    });
+</script>
+<!-- biểu đồ tròn -->
+<script>
+    Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+    Chart.defaults.global.defaultFontColor = '#858796';
+    // Nhận dữ liệu từ C# ViewBag
+    var chartDataFromViewBag = @Html.Raw(Json.Encode(chartPieData));
+    var chartLableFromViewBag = @Html.Raw(Json.Encode(chartPieLable));
+    // Khởi tạo biểu đồ
+    var ctx = document.getElementById("myPieChart");
+    var myPieChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: chartLableFromViewBag,
+            datasets: [{
+                data: chartDataFromViewBag,  // Dữ liệu từ C#
+                backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc'],
+                hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf'],
+                hoverBorderColor: "rgba(234, 236, 244, 1)",
+            }],
+        },
+        options: {
+            maintainAspectRatio: false,
+            tooltips: {
+                backgroundColor: "rgb(255,255,255)",
+                bodyFontColor: "#858796",
+                borderColor: '#dddfeb',
+                borderWidth: 1,
+                xPadding: 15,
+                yPadding: 15,
+                displayColors: false,
+                caretPadding: 10,
+            },
+            legend: {
+                display: true, // Hiển thị legend (chú thích)
+                position: 'bottom', // Đặt vị trí legend ở dưới biểu đồ
+                labels: {
+                    fontSize: 14, // Kích thước chữ cho legend
+                    fontColor: '#858796', // Màu chữ cho legend
+                    padding: 15, // Khoảng cách giữa các mục trong legend
+                    boxWidth: 20, // Chiều rộng của hộp màu trong legend
+                },
+            },
+            cutoutPercentage: 80,
+        },
+    });
+</script>
+
+<!-- Biểu đồ đường -->
+<script>
+       // Set new default font family and font color to mimic Bootstrap's default styling
+    Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+    Chart.defaults.global.defaultFontColor = '#858796';
+
+    function number_format(number, decimals, dec_point, thousands_sep) {
+        // Convert input to number
+        number = parseFloat(number);
+        if (!isFinite(number)) return '0 ₫';
+
+        // Round to nearest integer (since VND usually doesn't use decimals)
+        var roundedNumber = Math.round(number);
+
+        // Convert number to a string with period as the thousands separator
+        var formattedNumber = roundedNumber.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+
+        // Append the VND currency symbol
+        return formattedNumber + ' ₫';
+    }
+    // Nhận dữ liệu từ C# ViewBag
+    var chartDataFromViewBag = @Html.Raw(Json.Encode(chartLineData));
+    var chartLableFromViewBag = @Html.Raw(Json.Encode(chartLineLable));
+    // Area Chart Example
+    var ctx = document.getElementById("myAreaChart");
+    var myLineChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+          labels: chartLableFromViewBag,
+        datasets: [{
+          label: "Lợi nhuận",
+          lineTension: 0.3,
+          backgroundColor: "rgba(78, 115, 223, 0.05)",
+          borderColor: "rgba(78, 115, 223, 1)",
+          pointRadius: 3,
+          pointBackgroundColor: "rgba(78, 115, 223, 1)",
+          pointBorderColor: "rgba(78, 115, 223, 1)",
+          pointHoverRadius: 3,
+          pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
+          pointHoverBorderColor: "rgba(78, 115, 223, 1)",
+          pointHitRadius: 10,
+          pointBorderWidth: 2,
+            data: chartDataFromViewBag,
+        }],
+      },
+      options: {
+        maintainAspectRatio: false,
+        layout: {
+          padding: {
+            left: 10,
+            right: 25,
+            top: 25,
+            bottom: 0
+          }
+        },
+        scales: {
+          xAxes: [{
+            time: {
+              unit: 'date'
+            },
+            gridLines: {
+              display: false,
+              drawBorder: false
+            },
+            ticks: {
+              maxTicksLimit: 7
+            }
+          }],
+          yAxes: [{
+            ticks: {
+              maxTicksLimit: 5,
+              padding: 10,
+              // Include a dollar sign in the ticks
+              callback: function(value, index, values) {
+                return number_format(value);
+              }
+            },
+            gridLines: {
+              color: "rgb(234, 236, 244)",
+              zeroLineColor: "rgb(234, 236, 244)",
+              drawBorder: false,
+              borderDash: [2],
+              zeroLineBorderDash: [2]
+            }
+          }],
+        },
+        legend: {
+          display: false
+        },
+        tooltips: {
+          backgroundColor: "rgb(255,255,255)",
+          bodyFontColor: "#858796",
+          titleMarginBottom: 10,
+          titleFontColor: '#6e707e',
+          titleFontSize: 14,
+          borderColor: '#dddfeb',
+          borderWidth: 1,
+          xPadding: 15,
+          yPadding: 15,
+          displayColors: false,
+          intersect: false,
+          mode: 'index',
+          caretPadding: 10,
+          callbacks: {
+            label: function(tooltipItem, chart) {
+              var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
+              return datasetLabel + " : "+ number_format(tooltipItem.yLabel);
+            }
+          }
+        }
+      }
+    });
+</script>

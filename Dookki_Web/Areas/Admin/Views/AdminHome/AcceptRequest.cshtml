@@ -1,0 +1,25 @@
+﻿@model Dookki_Web.Models.BookingRequest
+
+@{
+    ViewBag.Title = "AcceptRequest";
+}
+
+<h2>Hoàn tất!</h2>
+
+<td style="text-align:right">
+    <button type="button" class="btn btn-primary" onclick="window.location.href='@Url.Action("ListAcceptedRequest", "AdminHome", new { id = @Model.ID })'">
+        Xem danh sách yêu cầu
+    </button> |
+    <button type="button" class="btn btn-danger" onclick="confirmDelete(@Model.ID)">
+        Xóa yêu cầu
+    </button>
+</td>
+
+<script>
+    function confirmDelete(id) {
+        if (confirm('Bạn có chắc chắn muốn xóa yêu cầu này không?')) {
+            // Chuyển hướng đến action DeleteRequest nếu người dùng xác nhận
+            window.location.href = '@Url.Action("DeleteRequest", "AdminHome")' + '?id=' + id;
+        }
+    }
+</script>

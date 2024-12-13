@@ -1,0 +1,60 @@
+﻿@model Dookki_Web.Models.Order
+
+@{
+    ViewBag.Title = "DetailOrder";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+    var OrderDetails = Model.OrderDetails;
+}
+
+<section class="py-4 bg-light rounded">
+    <div class="container">
+        <div class="p-4 border bg-white rounded">
+            <h2 class="text-center mb-4" style="font-size: 48px;">Detail order</h2>
+
+            <div class="container section-title">
+                <hr />
+                <span class="mg-r-10">
+                    <strong>
+                        @Html.DisplayNameFor(model => model.Time)
+                    </strong>
+                    @Html.Label(Model.Time.ToString(@"hh\:mm\:ss"))
+                </span>
+                <span>
+                    <strong>
+                        @Html.DisplayNameFor(model => model.Status)
+                    </strong>
+                    @Html.DisplayFor(model => model.Status)
+                </span>
+            </div>
+
+            <table class="table" border="1">
+                <thead>
+                    <tr>
+                        <th style="width: 100px">@Html.Label("Name")</th>
+                        <th style="width: 100px">@Html.Label("Quantity")</th>
+                        <th style="width: 100px">@Html.Label("Price")</th>
+                        <th style="width: 100px">@Html.Label("Total")</th>
+                    </tr>
+                </thead>
+                <tbory>
+                    @foreach (var item in OrderDetails)
+                    {
+                        var total = item.quantily * item.Ticket.Price;
+                        <tr>
+                            <td>@item.Ticket.Name</td>
+                            <td>@item.quantily</td>
+                            <td>@item.Ticket.Price.ToString("#,##0 VND")</td>
+                            <td>@total.ToString("#,##0 VND")</td>
+                        </tr>
+                    }
+                </tbory>
+            </table>
+
+
+        </div>
+    </div>
+</section>
+
+
+
+

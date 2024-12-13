@@ -1,0 +1,49 @@
+﻿@model List<Dookki_Web.Models.OrderViewModel>
+
+@{
+    ViewBag.Title = "HistoryOrder";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+
+<section class="py-4 bg-light">
+    <div class="container">
+        <div class="bg-white border p-4 rounded">
+            <h2 class="text-center mb-4" style="font-size: 48px;">History order</h2>
+
+            <hr />
+            <table class="table" border="1">
+                <thead>
+                    <tr>
+                        <th style="width: 1px"></th>
+                        <th style="width: 100px">@Html.Label("Day")</th>
+                        <th style="width: 100px">@Html.Label("Time")</th>
+                        <th style="width: 100px">@Html.Label("Status")</th>
+                        <th style="width: 100px">@Html.Label("Total money")</th>
+                        <th style="width: 50px" class="text">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td></td>
+                            <td>@item.Day.ToString(@"dd\-MM\-yyyy")</td>
+                            <td>@item.Time.ToString(@"hh\:mm\:ss")</td>
+                            <td>@Html.DisplayFor(modelItem => item.Status)</td>
+                            <td>@item.Money.ToString("#,##0 VND")</td>
+                            <td>
+                                <button type="button" class="btn btn-primary" onclick="window.location.href='@Url.Action("DetailOrder","Customer", new {id = item.IDOrder})'">
+                                    Detail
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</section>
+
+

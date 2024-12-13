@@ -1,0 +1,88 @@
+﻿@model Dookki_Web.Models.Ticket
+
+@{
+    ViewBag.Title = "AddItem";
+}
+
+<h2>Thêm mới vé</h2>
+
+@using (Html.BeginForm("AddItem", "AdminOrder", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.Label("Tên vé", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-6">
+            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.Label("Giá", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-6">
+            @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control", @id = "priceInput" } })
+            @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.Label("Loại", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-6">
+            @Html.DropDownListFor(
+                model => model.ID_Category,
+                new List<SelectListItem>
+                {
+                    new SelectListItem { Text = "Take-away", Value = "1" },
+                    new SelectListItem { Text = "Stay-here", Value = "2" }
+                },
+                new { @class = "form-control", @id = "idCategoryTicket" }
+            )
+            @Html.ValidationMessageFor(model => model.ID_Category, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.Label("Chọn ảnh", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-6">
+            <input type="file" name="ImageFile" class="form-control" accept="image/*" />
+            @Html.ValidationMessageFor(model => model.urlImage, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10 d-flex justify-content-start">
+            <input type="submit" value="Thêm mới" class="btn btn-outline-success mr-2 w-25" />
+            <button type="button" class="btn btn-primary w-25" onclick="window.location.href='@Url.Action("Display", "AdminOrder")'">
+                Trở lại
+            </button>
+        </div>
+    </div>
+</div>
+}
+
+
+@*<script>
+    document.getElementById("priceInput").addEventListener("input", function (e) {
+        // Lấy giá trị nhập vào và bỏ dấu phẩy
+        let value = e.target.value.replace(/,/g, "");
+
+        // Kiểm tra giá trị có phải là số hợp lệ
+        if (!isNaN(value) && value !== "") {
+            // Chuyển giá trị thành số nguyên
+            let number = parseFloat(value);
+
+            // Đảm bảo không có phần thập phân và định dạng theo kiểu tiền tệ
+            let formattedValue = new Intl.NumberFormat("vi-VN", {
+                style: "decimal",
+                maximumFractionDigits: 0, // Không có phần thập phân
+            }).format(number);
+
+            // Đặt lại giá trị vào ô nhập liệu sau khi định dạng
+            e.target.value = formattedValue;
+        } else {
+            // Nếu giá trị không hợp lệ, xóa giá trị nhập
+            e.target.value = "";
+        }
+    });
+</script>*@

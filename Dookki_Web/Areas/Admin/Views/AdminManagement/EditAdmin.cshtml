@@ -1,0 +1,61 @@
+﻿@model Dookki_Web.Models.Map.AdminViewModel
+
+@{
+    ViewBag.Title = "EditAdmin";
+}
+
+<h2>Sửa admin</h2>
+
+@using (Html.BeginForm("EditAdmin", "AdminManagement", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    
+<div class="form-horizontal">
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.IDAccount, new { @class = "control-label col-md-1" })
+        :
+        @if (Model != null && Model.IDAccount != null)
+        {
+            @Model.IDAccount
+        }
+        else
+        {
+            <span>No data available</span>
+        }
+
+    </div>
+    @*@Html.HiddenFor(model => model.IDAccount)*@
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Username, "Tên tài khoản", htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.TextBoxFor(model => model.Username, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Password, "Mật khẩu", htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.PasswordFor(model => model.Password, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Name, "Tên Admin", htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Phone, "Số điện thoại", htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.TextBoxFor(model => model.Phone, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10 d-flex justify-content-start">
+            <input type="submit" value="Lưu" class="btn btn-outline-success mr-2 w-25" />
+            <button type="button" class="btn btn-primary w-25" onclick="window.location.href='@Url.Action("Index", "AdminManagement")'">
+                Trở lại
+            </button>
+        </div>
+    </div>
+</div>
+}
+
